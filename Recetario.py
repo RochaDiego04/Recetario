@@ -92,24 +92,44 @@ def agregar_receta(directorioCategoria):
     nuevaReceta.close()
     print(f"Receta con el nombre '{nombreReceta}' agregada con éxito")
 
+def agregar_categoria(directorio):
+    nombreCategoria= input("Ingresa el nombre de la nueva categoría: ")
+    nuevoDirectorio = os.makedirs(Path(directorio,nombreCategoria))
 
 def ejecutar_opcion(opcion,directorio):
     match opcion:
         case 1:
             listaCategorias = mostrar_categorias(directorio)
-            directorioCategoria = elegir_categorias(listaCategorias, directorio)
-            listaRecetas = mostrar_recetas(directorioCategoria)
-            directorioReceta = elegir_recetas(listaRecetas,directorioCategoria)
-            leerArchivo_receta(directorioReceta)
-            system('pause')
-            system('cls')
+            if len(listaCategorias) != 0: #Comprobar que la lista no esté vacía
+                directorioCategoria = elegir_categorias(listaCategorias, directorio)
+                listaRecetas = mostrar_recetas(directorioCategoria)
+                if len(listaRecetas) != 0:
+                    directorioReceta = elegir_recetas(listaRecetas,directorioCategoria)
+                    leerArchivo_receta(directorioReceta)
+                    system('pause')
+                    system('cls')
+                else:
+                    print("*Lista de recetas vacía*")
+            else:
+                print("*Lista de categorías vacía*")
         case 2:
             listaCategorias = mostrar_categorias(directorio)
-            directorioCategoria = elegir_categorias(listaCategorias, directorio)
-            listaRecetas = mostrar_recetas(directorioCategoria)
-            agregar_receta(directorioCategoria)
-            pass
+            if len(listaCategorias) != 0:
+                directorioCategoria = elegir_categorias(listaCategorias, directorio)
+                listaRecetas = mostrar_recetas(directorioCategoria)
+                if len(listaRecetas) != 0:
+                    agregar_receta(directorioCategoria)
+                    system('pause')
+                    system('cls')
+                else:
+                    print("*Lista de recetas vacía*")
+            else:
+                print("*Lista de categorías vacía*")
         case 3:
+            listaCategorias = mostrar_categorias(directorio)
+            agregar_categoria(directorio)
+            system('pause')
+            system('cls')
             pass
         case 4:
             pass
