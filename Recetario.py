@@ -88,7 +88,9 @@ def leerArchivo_receta(directorioReceta):
 
 def agregar_receta(directorioCategoria):
     nombreReceta = input("Ingresa el nombre de la receta, con la extension .txt: ")
+    contenidoReceta = input(f"Ingresa el contenido de la receta '{nombreReceta}': ")
     nuevaReceta = open(Path(directorioCategoria,nombreReceta), 'w')
+    nuevaReceta.write(contenidoReceta)
     nuevaReceta.close()
     print(f"Receta con el nombre '{nombreReceta}' agregada con éxito")
 
@@ -163,4 +165,3 @@ def ejecutar_opcion(opcion,directorio):
 
 #################   MAIN    ##################
 ejecutar_menu()
-#ruta.joinpath('')
