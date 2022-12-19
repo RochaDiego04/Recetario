@@ -1,5 +1,6 @@
 from pathlib import Path
 import os
+from os import system
 def obtener_directorio():
     base = Path.home()
     ruta = Path(base, "Recetas")
@@ -85,6 +86,13 @@ def leerArchivo_receta(directorioReceta):
     print(archivo.read())
     archivo.close()
 
+def agregar_receta(directorioCategoria):
+    nombreReceta = input("Ingresa el nombre de la receta, con la extension .txt: ")
+    nuevaReceta = open(Path(directorioCategoria,nombreReceta), 'w')
+    nuevaReceta.close()
+    print(f"Receta con el nombre '{nombreReceta}' agregada con éxito")
+
+
 def ejecutar_opcion(opcion,directorio):
     match opcion:
         case 1:
@@ -93,7 +101,13 @@ def ejecutar_opcion(opcion,directorio):
             listaRecetas = mostrar_recetas(directorioCategoria)
             directorioReceta = elegir_recetas(listaRecetas,directorioCategoria)
             leerArchivo_receta(directorioReceta)
+            system('pause')
+            system('cls')
         case 2:
+            listaCategorias = mostrar_categorias(directorio)
+            directorioCategoria = elegir_categorias(listaCategorias, directorio)
+            listaRecetas = mostrar_recetas(directorioCategoria)
+            agregar_receta(directorioCategoria)
             pass
         case 3:
             pass
