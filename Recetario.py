@@ -96,6 +96,8 @@ def agregar_categoria(directorio):
     nombreCategoria= input("Ingresa el nombre de la nueva categoría: ")
     nuevoDirectorio = os.makedirs(Path(directorio,nombreCategoria))
 
+def eliminarArchivo_receta(directorioReceta):
+    os.remove(directorioReceta)
 def ejecutar_opcion(opcion,directorio):
     match opcion:
         case 1:
@@ -117,12 +119,9 @@ def ejecutar_opcion(opcion,directorio):
             if len(listaCategorias) != 0:
                 directorioCategoria = elegir_categorias(listaCategorias, directorio)
                 listaRecetas = mostrar_recetas(directorioCategoria)
-                if len(listaRecetas) != 0:
-                    agregar_receta(directorioCategoria)
-                    system('pause')
-                    system('cls')
-                else:
-                    print("*Lista de recetas vacía*")
+                agregar_receta(directorioCategoria)
+                system('pause')
+                system('cls')
             else:
                 print("*Lista de categorías vacía*")
         case 3:
@@ -132,7 +131,19 @@ def ejecutar_opcion(opcion,directorio):
             system('cls')
             pass
         case 4:
-            pass
+            listaCategorias = mostrar_categorias(directorio)
+            if len(listaCategorias) != 0: #Comprobar que la lista no esté vacía
+                directorioCategoria = elegir_categorias(listaCategorias, directorio)
+                listaRecetas = mostrar_recetas(directorioCategoria)
+                if len(listaRecetas) != 0:
+                    directorioReceta = elegir_recetas(listaRecetas,directorioCategoria)
+                    eliminarArchivo_receta(directorioReceta)
+                    system('pause')
+                    system('cls')
+                else:
+                    print("*Lista de recetas vacía*")
+            else:
+                print("*Lista de categorías vacía*")
         case 5:
             pass
         case 6:
