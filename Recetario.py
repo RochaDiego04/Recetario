@@ -24,7 +24,7 @@ def mostrar_menu():
           "[2] - Crear receta \n"
           "[3] - Crear categoría \n"
           "[4] - Eliminar receta \n"
-          "[5] - Eliminar receta \n"
+          "[5] - Eliminar categoría \n"
           "[6] - Finalizar programa"))
 
 def opcion_menu():
@@ -41,7 +41,7 @@ def mostrar_categorias(directorio): #Retorna una lista enumerada de las categori
     for item in Path(directorio).glob('*'):
         listaCategorias.append(os.path.split(item)[1])
     for i,j in enumerate(listaCategorias):
-        print(i,j)
+        print(f"[{i}] - {j}")
     return listaCategorias
 
 def elegir_categorias(listaCategorias, directorio):
@@ -64,7 +64,7 @@ def mostrar_recetas(directorioCategoria):
     for item in Path(directorioCategoria).glob('*'):
         listaRecetas.append(os.path.split(item)[1])
     for i,j in enumerate(listaRecetas):
-        print(i,j)
+        print(f"[{i}] - {j}")
     return listaRecetas
 
 def elegir_recetas(listaRecetas,directorioCategoria):
@@ -98,6 +98,9 @@ def agregar_categoria(directorio):
 
 def eliminarArchivo_receta(directorioReceta):
     os.remove(directorioReceta)
+
+def eliminar_categoria(directorioCategoria):
+    os.rmdir(directorioCategoria)
 def ejecutar_opcion(opcion,directorio):
     match opcion:
         case 1:
@@ -129,7 +132,6 @@ def ejecutar_opcion(opcion,directorio):
             agregar_categoria(directorio)
             system('pause')
             system('cls')
-            pass
         case 4:
             listaCategorias = mostrar_categorias(directorio)
             if len(listaCategorias) != 0: #Comprobar que la lista no esté vacía
@@ -145,7 +147,14 @@ def ejecutar_opcion(opcion,directorio):
             else:
                 print("*Lista de categorías vacía*")
         case 5:
-            pass
+            listaCategorias = mostrar_categorias(directorio)
+            if len(listaCategorias) != 0: #Comprobar que la lista no esté vacía
+                directorioCategoria = elegir_categorias(listaCategorias, directorio)
+                eliminar_categoria(directorioCategoria)
+                system('pause')
+                system('cls')
+            else:
+                print("*Lista de categorías vacía*")
         case 6:
             print("Hasta luego!")
         case _:
